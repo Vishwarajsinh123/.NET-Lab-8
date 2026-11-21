@@ -1,0 +1,38 @@
+﻿@model List<inventory_management_module.Models.Product>
+
+@{ 
+    Layout = null;
+}
+
+<body style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color:beige">
+    <h2>Inventory Management</h2>
+    <p>@Html.ActionLink("Add New Product", "Create")</p>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { style = "text-decoration: none;" })
+
+                        @using (Html.BeginForm("Delete", "Product", new { id = item.ProductID }, FormMethod.Post, new { style = "display: inline; margin: 0; padding: 0;" }))
+                        {
+                            <input type="submit" value="Delete" style="font-family: inherit; cursor: pointer; padding: 4px 8px; vertical-align: middle;" />
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
